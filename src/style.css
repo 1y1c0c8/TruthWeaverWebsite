@@ -46,7 +46,7 @@ body {
   font-size: 48px;
   margin-top: 5px;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #003366;
   padding: 0px;
   height: 42px;
 }
@@ -103,6 +103,14 @@ body {
   border-radius: 4px;
   margin-left: 10px;
   text-indent: -9999px;
+}
+
+#search-page .search-bar button.search-button-img {
+  background-image: url("../img/search-button-white.png"); /* 圖片的路徑 */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  /* 其他樣式設定 */
 }
 
 #search-page .content {
