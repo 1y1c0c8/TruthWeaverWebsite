@@ -1,0 +1,131 @@
+/* style.css */
+/* General */
+body {
+  background-color: #003366;
+  color: #CCCCCC;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f2f2f2;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+}
+
+.bottom-nav a img {
+  width: 36px;
+  height: 36px;
+}
+
+@media (max-width: 600px) {
+  .bottom-nav {
+    flex-direction: column;
+  }
+}
+
+/* Home Page */
+#home-page .banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #CCCCCC;
+  
+}
+
+#home-page .banner h1 {
+  font-family: Brusher, cursive;
+  font-size: 48px;
+  margin-top: 5px;
+  font-weight: bold;
+  color: #FFFFFF;
+  padding: 0px;
+  height: 42px;
+}
+
+#home-page .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 400px);
+}
+
+#home-page .square-object {
+  border: 2px solid #CCCCCC;
+  border-radius: 10px;
+  width: 200px;
+  height: 200px;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#home-page .square-object p {
+  color: #FF0000;
+  font-size: 20px;
+}
+
+/* Search Page */
+#search-page .search-bar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #CCCCCC;
+  padding: 20px;
+  z-index: 999;
+}
+
+#search-page .search-bar input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+#search-page .search-bar button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #003366;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+  text-indent: -9999px;
+}
+
+#search-page .content {
+  margin-top: 100px;
+  padding: 20px;
+}
+
+#search-page .news-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.news-banner {
+  background-color: #CCCCCC;
+  border: 1px solid #CCCCCC;
+  border-radius: 8px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.news-banner p {
+  color: #FF0000;
+}
