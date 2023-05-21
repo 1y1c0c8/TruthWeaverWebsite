@@ -1,19 +1,319 @@
 ## 現況
-- 使用flask讓home page成功出現（包含html, css, image等素材引用）
+- 使用flask讓home page, search page串連，bottom-nav運作正常
 
 ## prompt
+我的資料結構以及部分程式碼如下，我希望實做出按bottom-nav的home button/search button可以跳轉到對應頁面的功能，我應該如何優化我的server.py？
+----------
+'data structure'
+poject_folder/
+    src/
+        home_page.html
+        search_page.html
+    static/
+        home-button-black.png
+        search-button-black.png
+        search-button-white.png
+        style.css
+    server.py
+----------
+"home_page.html"
+<!-- home_page.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <title>Home Page</title>
+</head>
+<body>
+  <div id="home-page">
+    <div class="banner">
+      <h1 class="centered-title brusher-font">TruthWeaver</h1>
+    </div>
+    <div class="content">
+      <div class="square-object d3-object">
+        <p>D3.js</p>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <a href="home_page.html"><img src="../static/home-button-black.png" alt="Home Page"></a>
+      <a href="search_page.html"><img src="../static/search-button-black.png" alt="Search Page"></a>
+    </div>
+  </div>
+</body>
+</html>
+
+----------
+"search_page.html"
+<!-- search_page.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Page</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="search-page">
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="輸入關鍵字...">
+      <button id="search-button" class="search-button-img">搜尋</button>
+    </div>
+    <div class="content">
+      <div class="news-blocks">
+        <div class="news-banner">
+          <p>News 1</p>
+        </div>
+        <div class="news-banner">
+          <p>News 2</p>
+        </div>
+        <div class="news-banner">
+          <p>News 3</p>
+        </div>
+        <div class="news-banner">
+          <p>News 4</p>
+        </div>
+        <div class="news-banner">
+          <p>News 5</p>
+        </div>
+        <div class="news-banner">
+          <p>News 6</p>
+        </div>
+        <div class="news-banner">
+          <p>News 7</p>
+        </div>
+        <div class="news-banner">
+          <p>News 8</p>
+        </div>
+        <div class="news-banner">
+          <p>News 9</p>
+        </div>
+        <div class="news-banner">
+            <p>News 10</p>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <a href="home_page.html"><img src="../static/home-button-black.png" alt="Home"></a>
+      <a href="search_page.html"><img src="../static/search-button-black.png" alt="Search"></a>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript程式碼可以在這裡添加
+    // 將搜索欄的操作邏輯放在這裡
+    const searchButton = document.getElementById("search-button");
+    const searchInput = document.getElementById("search-input");
+
+    searchButton.addEventListener("click", function () {
+      const keyword = searchInput.value;
+      // 在這裡執行相應的搜尋操作
+      // 可以呼叫API、擷取資料，或者執行其他操作
+      console.log("搜尋關鍵字：" + keyword);
+    });
+  </script>
+</body>
+</html>
+
+----------
+"style.css"
+/* style.css */
+/* General */
+body {
+  background-color: #003366;
+  color: #CCCCCC;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f2f2f2;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+}
+
+.bottom-nav a img {
+  width: 36px;
+  height: 36px;
+}
+
+@media (max-width: 600px) {
+  .bottom-nav {
+    flex-direction: column;
+  }
+}
+
+/* Home Page */
+#home-page .banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #CCCCCC;
+  
+}
+
+#home-page .banner h1 {
+  font-family: Brusher, cursive;
+  font-size: 48px;
+  margin-top: 5px;
+  font-weight: bold;
+  color: #003366;
+  padding: 0px;
+  height: 42px;
+}
+
+#home-page .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 400px);
+}
+
+#home-page .square-object {
+  border: 2px solid #CCCCCC;
+  border-radius: 10px;
+  width: 200px;
+  height: 200px;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#home-page .square-object p {
+  color: #FF0000;
+  font-size: 20px;
+}
+
+/* Search Page */
+#search-page .search-bar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #CCCCCC;
+  padding: 20px;
+  z-index: 999;
+}
+
+#search-page .search-bar input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+#search-page .search-bar button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #003366;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+  text-indent: -9999px;
+}
+
+#search-page .search-bar button.search-button-img {
+  background-image: url("../static/search-button-white.png"); /* 圖片的路徑 */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  /* 其他樣式設定 */
+}
+
+#search-page .content {
+  margin-top: 100px;
+  padding: 20px;
+}
+
+#search-page .news-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.news-banner {
+  background-color: #CCCCCC;
+  border: 1px solid #CCCCCC;
+  border-radius: 8px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.news-banner p {
+  color: #FF0000;
+}
+
+----------
+"server.py"
+from flask import Flask, jsonify, render_template
+
+app = Flask(__name__, template_folder='src', static_folder='static')
+
+# # 定義路由端點，處理根目錄的 GET 請求
+# @app.route('/', methods=['GET'])
+# def hello():
+#     return 'Hello, World!'
+
+@app.route('/')
+def home():
+    return render_template("home_page.html")
+
+# 定義另一個路由端點，處理 /get_keywords 的 GET 請求
+@app.route('/get_keywords', methods=['GET'])
+def get_keywords():
+    # 在這裡呼叫您的 Python 函數以獲取關鍵字列表
+    keywords = ['Keyword 1', 'Keyword 2', 'Keyword 3']
+    
+    # 將關鍵字列表回傳為 JSON 格式
+    return jsonify(keywords)
+
+if __name__ == '__main__':
+    app.run()
+----------
+
+## 回覆
+- 新增route
+｀｀｀python
+from flask import Flask, render_template
+
+app = Flask(__name__, template_folder='src', static_folder='static')
+
+@app.route('/')
+def home():
+    return render_template("home_page.html")
+
+@app.route('/search')
+def search():
+    return render_template("search_page.html")
+
+if __name__ == '__main__':
+    app.run()
+｀｀｀
+- 關鍵字：Flask url for function
+> 可用於描述專案檔案位置以及server route
+｀｀｀html
+<div class="bottom-nav">
+  <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='home-button-black.png') }}" alt="Home Page"></a>
+  <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='search-button-black.png') }}" alt="Search Page"></a>
+</div>
+｀｀｀
+
 
 ## 結果
-在 Flask 應用程式的設計中，除了模板資料夾（template folder）和靜態資料夾（static folder）之外，還可以使用其他資料夾來存放不同類型的資料。
-
-1. **模板資料夾（template folder）**: 模板資料夾是用來存放 HTML 檔案的地方，這些 HTML 檔案通常包含了動態生成的內容。您可以使用 `render_template()` 函數來載入這些模板並呈現在瀏覽器上。預設情況下，Flask 會在應用程式根目錄下尋找名為 `templates` 的資料夾，您也可以通過 `template_folder` 參數來指定自定義的模板資料夾。
-
-2. **靜態資料夾（static folder）**: 靜態資料夾是用來存放靜態檔案的地方，例如 CSS 樣式表、JavaScript 檔案和圖片等。這些檔案在伺服器端被直接提供給瀏覽器，不會經過特殊處理。預設情況下，Flask 會在應用程式根目錄下尋找名為 `static` 的資料夾，您也可以通過 `static_folder` 參數來指定自定義的靜態資料夾。
-
-除了模板資料夾和靜態資料夾，您也可以自行建立其他資料夾來存放不同類型的資料，例如：
-
-3. **圖片資料夾（image folder）**: 如果您有大量的圖片檔案，可以建立一個單獨的資料夾來存放這些圖片。您可以在靜態資料夾中建立一個名為 `img` 或 `images` 的資料夾，然後將圖片檔案存放在其中。這樣在 HTML 檔案中引用圖片時，可以使用相對於靜態資料夾的路徑。
-
-4. **CSS、JavaScript 資料夾**: 如果您有多個 CSS 樣式表檔案或 JavaScript 檔案，可以根據需要建立單獨的資料夾來組織這些檔案。例如，可以在靜態資料夾中建立名為 `css` 和 `js` 的資料夾，然後將相應的檔案放在其中。
-
-在設計應用程式時，請根據需要組織和命名資料夾，確保檔案結構清晰易懂。同時，請確保在 HTML 檔案中正確引用這些檔案的路徑，以便在瀏覽器中正確顯示。

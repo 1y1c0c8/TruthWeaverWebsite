@@ -18,10 +18,17 @@
         <p>D3.js</p>
       </div>
     </div>
-    <div class="bottom-nav">
+    <!-- <div class="bottom-nav">
       <a href="home_page.html"><img src="../static/home-button-black.png" alt="Home Page"></a>
       <a href="search_page.html"><img src="../static/search-button-black.png" alt="Search Page"></a>
+    </div> -->
+    
+    <div class="bottom-nav">
+      <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='home-button-black.png') }}" alt="Home Page"></a>
+      <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='search-button-black.png') }}" alt="Search Page"></a>
     </div>
+    
+
   </div>
 </body>
 </html>
