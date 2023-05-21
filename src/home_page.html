@@ -7,12 +7,6 @@
   <title>Home Page</title>
   <style>
     /* 新增CSS樣式 */
-    #chartContainer {
-      max-width: 100%;
-      height: auto;
-      margin: 0 auto;
-      display: block;
-    }
     .category-label {
       text-anchor: middle;
       font-size: 20px;
@@ -37,7 +31,7 @@
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script>
     // 定義新聞類別的數量和列表
-    var newsCategories = ['entertainment', 'politics', 'technology', 'entertainment', 'sports', 'politics', 'sports', 'technology', 'entertainment', 'sports', 'sports','sports','sports'];
+    var newsCategories = ['general', 'business', 'technology', 'sports', 'entertainment', 'science', 'health', 'politics', 'entertainment', 'politics', 'technology', 'entertainment', 'sports', 'politics', 'sports', 'technology', 'entertainment', 'sports', 'sports','sports','sports'];
 
     // 定義新聞類別
     var categories = ['general', 'business', 'technology', 'sports', 'entertainment', 'science', 'health', 'politics'];
@@ -62,41 +56,51 @@
     var minRadius = 50;
     var maxRadius = 100;
 
+    // 設定包裝布局的大小
+    var diameter = 500;
+
     // 創建SVG容器
     var svg = d3.select("#chartContainer")
       .attr("width", "100%") // 設定寬度為100%以符合響應式網頁
-      .attr("height", "500"); // 設定高度
+      .attr("height", diameter); // 設定高度
 
-    // 計算圓圈的半徑比例
-    var radiusScale = d3.scaleLinear()
-      .domain([minCount, maxCount])
-      .range([minRadius, maxRadius]);
+    // 使用d3.pack()創建包裝布局
+    var pack = d3.pack()
+      .size([diameter, diameter])
+      .padding(10);
+
+    // 轉換類別計數數據為適用於包裝布局的層次結構數據
+    var root = d3.hierarchy({children: Object.entries(categoryCounts)}, function(d) {
+      return d.children;
+    })
+      .sum(function(d) { return d[1]; });
+
+    // 基於包裝布局生成節點數據
+    var nodes = pack(root).descendants();
 
     // 創建圓圈元素
     var circles = svg.selectAll("circle")
-      .data(Object.entries(categoryCounts))
+      .data(nodes)
       .enter()
       .append("circle")
       .attr("class", "category-circle")
-      .attr("cx", function(d, i) { return (i % 3) * 150 + 75; })
-      .attr("cy", function(d, i) { return Math.floor(i / 3) * 150 + 75; })
-      .attr("r", function(d) { return Math.max(radiusScale(d[1]), minRadius); }) // 修正半徑最小值
-      .style("fill", function(d) { return getCategoryColor(d[0]); });
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+      .attr("r", function(d) { return d.r; })
+      .style("fill", function(d) { return getCategoryColor(d.data[0]); });
 
     // 添加标签元素
-    circles.each(function(d, i) {
-      var category = d[0];
-      var radius = Math.max(radiusScale(d[1]), minRadius);
+    circles.each(function(d) {
+      var category = d.data[0];
+      var radius = d.r;
 
       svg.append("text")
         .attr("class", "category-label")
         .attr("transform", function() {
-          var x = (i % 3) * 150 + 75;
-          var y = Math.floor(i / 3) * 150 + 75;
-          return "translate(" + x + "," + y + ")";
+          return "translate(" + d.x + "," + d.y + ")";
         })
-        .attr("dy", radius + (-radius)) // 透過dy調整位置
-        .attr("text-anchor", "middle")  // 水平居中对齐
+        .attr("dy", radius + (-radius))
+        .attr("text-anchor", "middle")
         .text(category);
     });
 

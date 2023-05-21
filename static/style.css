@@ -77,8 +77,12 @@ body {
 #chartContainer {
   max-width: 100%;
   height: auto;
-  margin: 0 auto;
-  display: block;
+  margin: 50px;
+  margin-bottom: 200px;
+  /* display: block; */
+  display: flex; /* 使用flex布局 */
+  justify-content: right; /* 水平居中对齐 */
+  align-items: center; /* 垂直居中对齐 */
   border: 1px solid black; /* 添加框線樣式 */
 }
 
