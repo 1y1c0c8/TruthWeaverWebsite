@@ -1,96 +1,19 @@
 ## 現況
-- 調整標題顏色
-- 調整search button顏色（圖）
+- 使用flask讓home page成功出現（包含html, css, image等素材引用）
 
 ## prompt
-我有一個路徑為"img/search-button-white.png"的圖檔，我希望可以將這個圖檔顯示在以下程式碼所表示的物件上，請幫我修改html檔案或css檔案以符合我的需求。
-----------
-"search_page.html"
-<!-- search_page.html -->
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Page</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-  <div id="search-page">
-    <div class="search-bar">
-      <input type="text" id="search-input" placeholder="輸入關鍵字...">
-      <button id="search-button">搜尋</button>
-    </div>
-    <div class="content">
-      <div class="news-blocks">
-        <div class="news-banner">
-          <p>News 1</p>
-        </div>
-        <div class="news-banner">
-          <p>News 2</p>
-        </div>
-        <div class="news-banner">
-          <p>News 3</p>
-        </div>
-        <div class="news-banner">
-          <p>News 4</p>
-        </div>
-        <div class="news-banner">
-          <p>News 5</p>
-        </div>
-        <div class="news-banner">
-          <p>News 6</p>
-        </div>
-        <div class="news-banner">
-          <p>News 7</p>
-        </div>
-        <div class="news-banner">
-          <p>News 8</p>
-        </div>
-        <div class="news-banner">
-          <p>News 9</p>
-        </div>
-        <div class="news-banner">
-            <p>News 10</p>
-        </div>
-      </div>
-    </div>
-    <div class="bottom-nav">
-      <a href="home_page.html"><img src="../img/home-button-black.png" alt="Home"></a>
-      <a href="search_page.html"><img src="../img/search-button-black.png" alt="Search"></a>
-    </div>
-  </div>
-
-  <script>
-    // JavaScript程式碼可以在這裡添加
-    // 將搜索欄的操作邏輯放在這裡
-    const searchButton = document.getElementById("search-button");
-    const searchInput = document.getElementById("search-input");
-
-    searchButton.addEventListener("click", function () {
-      const keyword = searchInput.value;
-      // 在這裡執行相應的搜尋操作
-      // 可以呼叫API、擷取資料，或者執行其他操作
-      console.log("搜尋關鍵字：" + keyword);
-    });
-  </script>
-</body>
-</html>
-
-----------
-"css檔案片段"
-#search-page .search-bar button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #003366;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 4px;
-  margin-left: 10px;
-  text-indent: -9999px;
-}
-----------
 
 ## 結果
-- 自己調好
-- ChatGPT做得很讚
+在 Flask 應用程式的設計中，除了模板資料夾（template folder）和靜態資料夾（static folder）之外，還可以使用其他資料夾來存放不同類型的資料。
+
+1. **模板資料夾（template folder）**: 模板資料夾是用來存放 HTML 檔案的地方，這些 HTML 檔案通常包含了動態生成的內容。您可以使用 `render_template()` 函數來載入這些模板並呈現在瀏覽器上。預設情況下，Flask 會在應用程式根目錄下尋找名為 `templates` 的資料夾，您也可以通過 `template_folder` 參數來指定自定義的模板資料夾。
+
+2. **靜態資料夾（static folder）**: 靜態資料夾是用來存放靜態檔案的地方，例如 CSS 樣式表、JavaScript 檔案和圖片等。這些檔案在伺服器端被直接提供給瀏覽器，不會經過特殊處理。預設情況下，Flask 會在應用程式根目錄下尋找名為 `static` 的資料夾，您也可以通過 `static_folder` 參數來指定自定義的靜態資料夾。
+
+除了模板資料夾和靜態資料夾，您也可以自行建立其他資料夾來存放不同類型的資料，例如：
+
+3. **圖片資料夾（image folder）**: 如果您有大量的圖片檔案，可以建立一個單獨的資料夾來存放這些圖片。您可以在靜態資料夾中建立一個名為 `img` 或 `images` 的資料夾，然後將圖片檔案存放在其中。這樣在 HTML 檔案中引用圖片時，可以使用相對於靜態資料夾的路徑。
+
+4. **CSS、JavaScript 資料夾**: 如果您有多個 CSS 樣式表檔案或 JavaScript 檔案，可以根據需要建立單獨的資料夾來組織這些檔案。例如，可以在靜態資料夾中建立名為 `css` 和 `js` 的資料夾，然後將相應的檔案放在其中。
+
+在設計應用程式時，請根據需要組織和命名資料夾，確保檔案結構清晰易懂。同時，請確保在 HTML 檔案中正確引用這些檔案的路徑，以便在瀏覽器中正確顯示。

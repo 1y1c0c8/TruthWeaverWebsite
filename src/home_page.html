@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <title>Home Page</title>
 </head>
 <body>
@@ -18,8 +19,8 @@
       </div>
     </div>
     <div class="bottom-nav">
-      <a href="home_page.html"><img src="../img/home-button-black.png" alt="Home Page"></a>
-      <a href="search_page.html"><img src="../img/search-button-black.png" alt="Search Page"></a>
+      <a href="home_page.html"><img src="../static/home-button-black.png" alt="Home Page"></a>
+      <a href="search_page.html"><img src="../static/search-button-black.png" alt="Search Page"></a>
     </div>
   </div>
 </body>
