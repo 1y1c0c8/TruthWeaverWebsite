@@ -13,6 +13,11 @@
       margin: 0 auto;
       display: block;
     }
+    .category-label {
+      text-anchor: middle;
+      font-size: 20px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -78,13 +83,22 @@
       .attr("r", function(d) { return Math.max(radiusScale(d[1]), minRadius); }) // 修正半徑最小值
       .style("fill", function(d) { return getCategoryColor(d[0]); });
 
-    // 添加按鈕屬性和背景圖片
-    circles.append("image")
-      .attr("xlink:href", "path/to/image.png")
-      .attr("x", function(d) { return -Math.max(radiusScale(d[1]), minRadius); }) // 修正半徑最小值
-      .attr("y", function(d) { return -Math.max(radiusScale(d[1]), minRadius); }) // 修正半徑最小值
-      .attr("width", function(d) { return Math.max(radiusScale(d[1]), minRadius) * 2; }) // 修正半徑最小值
-      .attr("height", function(d) { return Math.max(radiusScale(d[1]), minRadius) * 2; }) // 修正半徑最小值
+    // 添加标签元素
+    circles.each(function(d, i) {
+      var category = d[0];
+      var radius = Math.max(radiusScale(d[1]), minRadius);
+
+      svg.append("text")
+        .attr("class", "category-label")
+        .attr("transform", function() {
+          var x = (i % 3) * 150 + 75;
+          var y = Math.floor(i / 3) * 150 + 75;
+          return "translate(" + x + "," + y + ")";
+        })
+        .attr("dy", radius + (-radius)) // 透過dy調整位置
+        .attr("text-anchor", "middle")  // 水平居中对齐
+        .text(category);
+    });
 
     // 定義新聞類別對應的顏色
     function getCategoryColor(category) {
