@@ -70,6 +70,16 @@ body {
   justify-content: center;
   align-items: center;
   height: calc(100vh - 400px);
+  margin-top: 200px; /* 調整上邊距的數值，使整個區塊向下移動 */
+}
+
+/* 新增CSS樣式 */
+#chartContainer {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  border: 1px solid black; /* 添加框線樣式 */
 }
 
 #home-page .square-object {

@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <title>Home Page</title>
+  <style>
+    
+  </style>
 </head>
 <body>
   <div id="home-page">
@@ -12,7 +15,7 @@
       <h1 class="centered-title brusher-font">TruthWeaver</h1>
     </div>
     <div class="content">
-      <svg id="chartContainer" width="500" height="500"></svg>
+      <svg id="chartContainer"></svg> <!-- 移除 width 和 height 屬性 -->
     </div>
     <div class="bottom-nav">
       <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='home-button-black.png') }}" alt="Home Page"></a>
@@ -49,7 +52,9 @@
     var maxRadius = 50;
 
     // 創建SVG容器
-    var svg = d3.select("#chartContainer");
+    var svg = d3.select("#chartContainer")
+      .attr("width", "100%") // 設定寬度為100%以符合響應式網頁
+      .attr("height", "500"); // 設定高度
 
     // 計算圓圈的半徑比例
     var radiusScale = d3.scaleLinear()
