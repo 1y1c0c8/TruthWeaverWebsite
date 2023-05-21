@@ -21,6 +21,20 @@ body {
   z-index: 999;
 }
 
+.bottom-nav a {
+  position: relative;
+}
+
+/* 調整 top、left、right、bottom 的值以擴大觸發範圍 */
+.bottom-nav a::before {
+  content: "";
+  position: absolute;
+  top: -60px; 
+  left: -300px;
+  right: -300px;
+  bottom: -60px;
+} 
+
 .bottom-nav a img {
   width: 36px;
   height: 36px;

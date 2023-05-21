@@ -2,9 +2,8 @@
 - 使用flask讓home page, search page串連，bottom-nav運作正常
 
 ## prompt
-我的資料結構以及部分程式碼如下，我希望實做出按bottom-nav的home button/search button可以跳轉到對應頁面的功能，我應該如何優化我的server.py？
+有關按鈕js code的html檔案如下，我希望可以擴大按鈕的範圍，目前是要準確地按在圖片上才能進行頁面的切換，我希望可以在不改變現有外觀的前提下，擴大「頁面切換按鈕」的觸發面積。
 ----------
-'data structure'
 poject_folder/
     src/
         home_page.html
@@ -16,7 +15,7 @@ poject_folder/
         style.css
     server.py
 ----------
-"home_page.html"
+```html
 <!-- home_page.html -->
 <!DOCTYPE html>
 <html>
@@ -44,9 +43,9 @@ poject_folder/
   </div>
 </body>
 </html>
-
+```
 ----------
-"search_page.html"
+```html
 <!-- search_page.html -->
 <!DOCTYPE html>
 <html>
@@ -117,9 +116,9 @@ poject_folder/
   </script>
 </body>
 </html>
-
+```
 ----------
-"style.css"
+```css
 /* style.css */
 /* General */
 body {
@@ -259,9 +258,10 @@ body {
 .news-banner p {
   color: #FF0000;
 }
-
+```
 ----------
-"server.py"
+```python
+<!-- server.py -->
 from flask import Flask, jsonify, render_template
 
 app = Flask(__name__, template_folder='src', static_folder='static')
@@ -286,34 +286,35 @@ def get_keywords():
 
 if __name__ == '__main__':
     app.run()
+```
 ----------
 
 ## 回覆
-- 新增route
-｀｀｀python
-from flask import Flask, render_template
+如果您不想改變 .bottom-nav 的高度，但仍希望擴大「Home Page」和「Search Page」按鈕的觸發範圍，您可以使用 CSS 的 ::before 或 ::after 偽元素來實現。這將允許您在不影響 .bottom-nav 外觀的情況下，增加可點擊的區域。
 
-app = Flask(__name__, template_folder='src', static_folder='static')
+以下是修改後的 CSS 範例：
+```css
+/* style.css */
 
-@app.route('/')
-def home():
-    return render_template("home_page.html")
+.bottom-nav a {
+  position: relative;
+}
 
-@app.route('/search')
-def search():
-    return render_template("search_page.html")
+.bottom-nav a::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* 調整 top、left、right、bottom 的值以擴大觸發範圍 */
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+}
 
-if __name__ == '__main__':
-    app.run()
-｀｀｀
-- 關鍵字：Flask url for function
-> 可用於描述專案檔案位置以及server route
-｀｀｀html
-<div class="bottom-nav">
-  <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='home-button-black.png') }}" alt="Home Page"></a>
-  <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='search-button-black.png') }}" alt="Search Page"></a>
-</div>
-｀｀｀
+.bottom-nav a img {
+  width: 36px;
+  height: 36px;
+}
 
+```
 
 ## 結果
+- 調整非常成功，雖然觸發距離多長是通過測試測出來的
