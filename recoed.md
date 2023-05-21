@@ -2,8 +2,9 @@
 - 使用flask讓home page, search page串連，bottom-nav運作正常
 
 ## prompt
-有關按鈕js code的html檔案如下，我希望可以擴大按鈕的範圍，目前是要準確地按在圖片上才能進行頁面的切換，我希望可以在不改變現有外觀的前提下，擴大「頁面切換按鈕」的觸發面積。
+- 有關按鈕js code的html檔案如下，我希望可以擴大按鈕的範圍，目前是要準確地按在圖片上才能進行頁面的切換，我希望可以在不改變現有外觀的前提下，擴大「頁面切換按鈕」的觸發面積。
 ----------
+```
 poject_folder/
     src/
         home_page.html
@@ -14,6 +15,7 @@ poject_folder/
         search-button-white.png
         style.css
     server.py
+```
 ----------
 ```html
 <!-- home_page.html -->
@@ -290,9 +292,7 @@ if __name__ == '__main__':
 ----------
 
 ## 回覆
-如果您不想改變 .bottom-nav 的高度，但仍希望擴大「Home Page」和「Search Page」按鈕的觸發範圍，您可以使用 CSS 的 ::before 或 ::after 偽元素來實現。這將允許您在不影響 .bottom-nav 外觀的情況下，增加可點擊的區域。
-
-以下是修改後的 CSS 範例：
+- 如果您不想改變 .bottom-nav 的高度，但仍希望擴大「Home Page」和「Search Page」按鈕的觸發範圍，您可以使用 CSS 的 ::before 或 ::after 偽元素來實現。這將允許您在不影響 .bottom-nav 外觀的情況下，增加可點擊的區域。以下是修改後的 CSS 範例：
 ```css
 /* style.css */
 
