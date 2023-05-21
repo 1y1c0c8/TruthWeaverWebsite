@@ -6,7 +6,13 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <title>Home Page</title>
   <style>
-    
+    /* 新增CSS樣式 */
+    #chartContainer {
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -26,7 +32,7 @@
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script>
     // 定義新聞類別的數量和列表
-    var newsCategories = ['entertainment', 'politics', 'technology', 'entertainment', 'sports', 'politics', 'sports', 'technology', 'entertainment', 'sports'];
+    var newsCategories = ['entertainment', 'politics', 'technology', 'entertainment', 'sports', 'politics', 'sports', 'technology', 'entertainment', 'sports', 'sports','sports','sports'];
 
     // 定義新聞類別
     var categories = ['general', 'business', 'technology', 'sports', 'entertainment', 'science', 'health', 'politics'];
@@ -48,8 +54,8 @@
     var minCount = d3.min(Object.values(categoryCounts));
 
     // 設定圓圈的最小和最大半徑
-    var minRadius = 10;
-    var maxRadius = 50;
+    var minRadius = 50;
+    var maxRadius = 100;
 
     // 創建SVG容器
     var svg = d3.select("#chartContainer")
@@ -61,7 +67,7 @@
       .domain([minCount, maxCount])
       .range([minRadius, maxRadius]);
 
-    // 創建圓圈元素並設定屬性
+    // 創建圓圈元素
     var circles = svg.selectAll("circle")
       .data(Object.entries(categoryCounts))
       .enter()
@@ -69,16 +75,16 @@
       .attr("class", "category-circle")
       .attr("cx", function(d, i) { return (i % 3) * 150 + 75; })
       .attr("cy", function(d, i) { return Math.floor(i / 3) * 150 + 75; })
-      .attr("r", function(d) { return radiusScale(d[1]); })
+      .attr("r", function(d) { return Math.max(radiusScale(d[1]), minRadius); }) // 修正半徑最小值
       .style("fill", function(d) { return getCategoryColor(d[0]); });
 
     // 添加按鈕屬性和背景圖片
     circles.append("image")
       .attr("xlink:href", "path/to/image.png")
-      .attr("x", function(d) { return -radiusScale(d[1]); })
-      .attr("y", function(d) { return -radiusScale(d[1]); })
-      .attr("width", function(d) { return radiusScale(d[1]) * 2; })
-      .attr("height", function(d) { return radiusScale(d[1]) * 2; });
+      .attr("x", function(d) { return -Math.max(radiusScale(d[1]), minRadius); }) // 修正半徑最小值
+      .attr("y", function(d) { return -Math.max(radiusScale(d[1]), minRadius); }) // 修正半徑最小值
+      .attr("width", function(d) { return Math.max(radiusScale(d[1]), minRadius) * 2; }) // 修正半徑最小值
+      .attr("height", function(d) { return Math.max(radiusScale(d[1]), minRadius) * 2; }) // 修正半徑最小值
 
     // 定義新聞類別對應的顏色
     function getCategoryColor(category) {
