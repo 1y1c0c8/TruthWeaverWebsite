@@ -25,7 +25,7 @@ body {
   position: relative;
 }
 
-/* 調整 top、left、right、bottom 的值以擴大觸發範圍 */
+/* 調整 top、left、right、bottom 的值以擴大觸發範圍
 .bottom-nav a::before {
   content: "";
   position: absolute;
@@ -33,17 +33,36 @@ body {
   left: -300px;
   right: -300px;
   bottom: -60px;
-} 
-
-.bottom-nav a img {
-  width: 36px;
-  height: 36px;
 }
 
 @media (max-width: 600px) {
   .bottom-nav {
     flex-direction: column;
   }
+} */
+
+.bottom-nav a::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -800%;
+  right: -800%;
+  bottom: -50%;
+  /* transform: translate(-50%, -50%); */
+}
+
+/* @media (max-width: 768px) {
+  .bottom-nav a::before {
+    top: -25%;
+    left: -25%;
+    right: -25%;
+    bottom: -25%;
+  }
+} */
+
+.bottom-nav a img {
+  width: 36px;
+  height: 36px;
 }
 
 /* Home Page */
