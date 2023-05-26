@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template
 
-app = Flask(__name__, template_folder='src', static_folder='static')
+app = Flask(__name__, template_folder='../src', static_folder='../static')
 
 # 定義路由端點，處理根目錄的 GET 請求
 # @app.route('/', methods=['GET'])

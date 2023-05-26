@@ -71,7 +71,6 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #CCCCCC;
-  
 }
 
 #home-page .banner h1 {
@@ -102,7 +101,7 @@ body {
   display: flex; /* 使用flex布局 */
   justify-content: right; /* 水平居中对齐 */
   align-items: center; /* 垂直居中对齐 */
-  border: 1px solid black; /* 添加框線樣式 */
+  /* border: 1px solid black; 添加框線樣式 */
 }
 
 #home-page .square-object {
@@ -175,10 +174,47 @@ body {
   background-color: #CCCCCC;
   border: 1px solid #CCCCCC;
   border-radius: 8px;
-  height: 100px;
+  height: 200px;
   display: flex;
   align-items: center;
+  padding: 30px;
+}
+
+.news-banner {
+  display: flex;
+  align-items: center;
+  background-color: #CCCCCC;
+  border: 1px solid #CCCCCC;
+  border-radius: 8px;
   padding: 10px;
+}
+
+.news-banner .news-info {
+  flex: 3;
+}
+
+.news-banner .news-info h3 {
+  color: #003366;
+  margin: 10;
+}
+
+.news-banner .tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.news-banner .tags span {
+  background-color: #003366;
+  color: #CCCCCC;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.news-banner .multimedia {
+  flex: 2;
+  text-align: right;
 }
 
 .news-banner p {
