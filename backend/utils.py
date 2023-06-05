@@ -660,6 +660,8 @@ class web_interface:
     self.rd = Reader()
     self.svc = ClassifierSVC()
 
+    self.store_parent_path = 'backend/relative_data/'
+
     path_classifier = '/Users/h0ff/Desktop/test/backend/classifier.pkl'
     # with open(path_classifier, 'rb') as file:
     #   self.classifier = pickle.load(file)
@@ -710,7 +712,7 @@ class web_interface:
   # 透過class Reader將first layer news寫入檔案
   def store_trend_news_in_file_with_rd(self, trend_list, date):
     self.sec.tm('<--WI, WRITE TREND NEWS START-->')
-    path = 'backend/trend_news/' + str(date) + '.txt'
+    path = self.store_parent_path + 'trend_news/' + str(date) + '.txt'
     self.rd.write_news_info_to_file(path=path, list=trend_list)
     self.sec.tm('<--WI, WRITE TREND NEWS END-->')
 
@@ -718,7 +720,7 @@ class web_interface:
   def get_news_title_group_from_file_with_rd(self, date):
     self.sec.tm('<--WI, GET NEWS FROM TITLE GROUP FROM FILE START-->')
     
-    path = 'backend/trend_news/' + str(date) + '.txt'
+    path = self.store_parent_path + 'trend_news/' + str(date) + '.txt'
     news_info_list = self.rd.read_news_info_from_file(path=path)
 
     news_title_group = []
@@ -747,7 +749,7 @@ class web_interface:
   # 透過class Reader將trend keyword - category dict (in json)寫入file
   def store_trend_category_dict_in_file_with_rd(self, trend_list, category_list, date):
     self.sec.tm('<--WI, WRITE CATEGORY START-->')
-    path = 'backend/category/' + str(date) + '.txt'
+    path = self.store_parent_path + 'category/' + str(date) + '.txt'
     self.rd.write_news_category_to_file(path=path, trend_list=trend_list, category_list=category_list)
     self.sec.tm('<--WI, WRITE CATEGORY END-->')
 
@@ -755,7 +757,7 @@ class web_interface:
   def get_trend_category_dict_from_file_with_rd(self, date):
     self.sec.tm('<--WI, GET CATEGORY LIST FROM FILE START-->')
     
-    path = 'backend/category/' + str(date) + '.txt'
+    path = self.store_parent_path + 'category/' + str(date) + '.txt'
 
     trend_category_dict={}
     trend_category_dict = self.rd.read_trend_category_dict_from_file(path)

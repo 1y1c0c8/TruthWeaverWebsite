@@ -2,5 +2,5 @@ backend/database
 /venv/
 /test2/
 backend/news_info
-/GPT-Neo/
 /png_editor.py
+countries.txt
