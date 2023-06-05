@@ -1,0 +1,1 @@
+{"politics": [], "sport": ["Miami Heat", "Real Madrid", "Jimmy Butler", "Zlatan Ibrahimovic", "Lewis Hamilton", "Rory McIlroy"], "business": [], "entertainment": ["The Idol"], "tech": [], "Break news": ["Norma Hunt", "Leon vs LAFC", "The Lazarus Project"]}

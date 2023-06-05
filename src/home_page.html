@@ -3,38 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home_style.css') }}"> -->
+  <link rel="stylesheet" href="../static/home_style.css">
   <title>Home Page</title>
-  <style>
-    /* 新增CSS樣式 */
-    .category-label {
-      text-anchor: middle;
-      font-size: 20px;
-      font-weight: bold;
-    }
-  </style>
 </head>
+
+
 <body>
   <div id="home-page">
-    <div class="banner">
-      <h1 class="centered-title brusher-font">TruthWeaver</h1>
+    
+    <!--頂部header-->
+    <div class="header">
+      <h1 class="title">TruthWeaver</h1>
+
+      <div class="search-section">
+        <input type="text" id="search-input" placeholder="輸入關鍵字...">
+        <button id="search-button" class="search-button-img">搜尋</button>
+      </div>
     </div>
-    <div class="content">
-      <svg id="chartContainer"></svg> <!-- 移除 width 和 height 屬性 -->
+    
+    <!--內容-->
+    <div class="content-section">
+      <!--更新時間-->
+      <div class="update-time">
+        <h2 class="time">{{update_datetime}}</h2>
+      </div>
+
+      <!--D3.js物件-->
+      <div class="content">
+        <svg id="chartContainer"></svg> 
+      </div>
+      
+      <!-- <div class="chart">
+        <iframe src="./src/global.html" frameborder="0"></iframe>
+      </div> -->
+
+
+
     </div>
+    
+    <!--底部導覽列-->
     <div class="bottom-nav">
-      <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='home-button-black.png') }}" alt="Home Page"></a>
-      <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='search-button-black.png') }}" alt="Search Page"></a>
+      <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='home-button-blue.png') }}" alt="Home Page"></a>
+      <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='search-button-blue.png') }}" alt="Search Page"></a>
     </div>
   </div>
 
-  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- <script src="./home_page.js"></script> -->
   <script>
     // 定義新聞類別的數量和列表
-    var newsCategories = ['general', 'business', 'technology', 'sports', 'entertainment', 'science', 'health', 'politics', 'entertainment', 'politics', 'technology', 'entertainment', 'sports', 'politics', 'sports', 'technology', 'entertainment', 'sports'];
+    var newsCategories = {{ category_list | safe}};
+    // var newsCategories = ['general', 'business', 'tech', 'sport', 'entertainment', 'politics', 'entertainment', 'politics', 'tech', 'entertainment', 'sport', 'politics', 'sport', 'tech', 'entertainment', 'sport'];
 
     // 定義新聞類別
-    var categories = ['general', 'business', 'technology', 'sports', 'entertainment', 'science', 'health', 'politics'];
+    var categories = ['Break news', 'business', 'tech', 'sport', 'entertainment', 'politics'];
 
     // 計算各個新聞類別的出現次數
     var categoryCounts = {};
@@ -53,8 +76,8 @@
     var minCount = d3.min(Object.values(categoryCounts));
 
     // 設定圓圈的最小和最大半徑
-    var minRadius = 50;
-    var maxRadius = 100;
+    var minRadius = 20;
+    var maxRadius = 40;
 
     // 設定包裝布局的大小
     var diameter = 500;
@@ -78,6 +101,11 @@
     // 基於包裝布局生成節點數據
     var nodes = pack(root).descendants();
 
+    // // 創建比例尺，將最小和最大的出現次數映射到最小和最大的半徑範圍
+    // var radiusScale = d3.scaleLinear()
+    //   .domain([minCount, maxCount])
+    //   .range([minRadius, maxRadius]);
+
     // 創建圓圈元素
     var circles = svg.selectAll("circle")
       .data(nodes)
@@ -87,7 +115,11 @@
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; })
       .attr("r", function(d) { return d.r; })
-      .style("fill", function(d) { return getCategoryColor(d.data[0]); });
+      // .attr("r", function(d) { return radiusScale(d.value); })  // 使用比例尺設定圓圈的半徑
+      .style("fill", function(d) { return getCategoryColor(d.data[0]); })
+      .on("click", function(d) {
+        console.log(d.data[0]); // 在控制台中顯示類別
+      });
 
     // 添加标签元素
     circles.each(function(d) {
@@ -101,23 +133,34 @@
         })
         .attr("dy", radius + (-radius))
         .attr("text-anchor", "middle")
+        .style("font-size", "24px") // 在此处设置字体大小
+        .style("font-family", "Impact")
+        .style("fill", "#FFFFFF")
         .text(category);
     });
 
     // 定義新聞類別對應的顏色
     function getCategoryColor(category) {
       var colorMap = {
-        'entertainment': 'blue',
-        'politics': 'red',
-        'technology': 'green',
-        'sports': 'orange',
-        'general': 'yellow',
-        'business': 'purple',
-        'science': 'pink',
-        'health': 'cyan'
+        'entertainment': '#F7BC0D',
+        'politics': '#6F42C1',
+        'tech': '#2C7BE5',
+        'sport': '#00B894',
+        'Break news': '#D90429',
+        'business': '#FF793F'
       };
       return colorMap[category] || 'gray';  // 預設為灰色
     }
+
+    // // 為圓圈添加點擊事件處理程式
+    // circles.on("click", function(d) {
+    //   var category = d.data[0]; // 獲取點擊的類別
+    //   var showDiv = d3.select(".show"); // 選擇.show的div元素
+
+    //   showDiv.select("p").text("選擇的類別：" + category); // 將類別顯示在<div class="show">中
+    // });
   </script>
+
+
 </body>
 </html>

@@ -5,130 +5,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search Page</title>
-  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> -->
+  <link rel="stylesheet" href="../static/search_style.css">
 </head>
+
 <body>
   <div id="search-page">
-    <div class="search-bar">
-      <input type="text" id="search-input" placeholder="輸入關鍵字...">
-      <button id="search-button" class="search-button-img">搜尋</button>
+
+    <!--頂部header-->
+    <div class="header">
+      <h1 class="title">TruthWeaver</h1>
+
+      <div class="search-section">
+        <input type="text" id="search-input" placeholder="輸入關鍵字...">
+        <button id="search-button" class="search-button-img">搜尋</button>
+      </div>
     </div>
-    <div class="content">
+    
+    <div class="content-section">
+      
+      <!--更新時間-->
+      <div class="update-time">
+        <h2 class="time">{{update_datetime}}</h2>
+      </div>
+
       <div class="news-blocks">
         
         <div class="news-banner">
-          <div class="news-info">
-            <h3>Iam Tongi Wins American Idol 2023 [2023/05/21]</h3>
-            <div class="tags">
-              <span>#Entertainment</span>
-              <span>#American Idol</span>
-              <span>#Megan Danielle</span>
+          
+          <div class="news-image">
+            <img src='https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2023%2F0603%2Fr1182000_1296x729_16%2D9.jpg'>
+          </div>
+
+          <div class="news-caption">
+            <div class="news-title">
+              <h2 class="title">title</h2>
             </div>
-          </div>
-          <div class="multimedia">
-            <!-- Add your multimedia content here, such as an image or video -->
-            <img src="static/American_Idol.jpg" alt="American Idol">
-          </div>
-        </div>
-        
-        <div class="news-banner">
-          <div class="news-info">
-            <h3>Manchester City Clinches Premier League Title with Victory over Chelsea [2023/05/21]</h3>
-            <div class="tags">
-              <span>#Sports</span>
-              <span>#Manchester City</span>
-              <span>#Chelsea</span>
+
+            <div class="news-tags">
+              <div class="tag">#tag1</div>
+              <div class="tag">#tag2</div>
+              <div class="tag">#tag3</div>
             </div>
-          </div>
-          <div class="multimedia">
-            <!-- Add your multimedia content here, such as an image or video -->
-            <img src="static/Manchester.jpg" alt="Manchester City">
           </div>
         </div>
 
-        <div class="news-banner">
-          <div class="news-info">
-            <h3>Borussia Dortmund Takes Control of Bundesliga Title Race with Win over Augsburg [2023/05/21]</h3>
-            <div class="tags">
-              <span>#Sports</span>
-              <span>#Sébastien Halle</span>
-              <span>#Borussia Dortmund</span>
-            </div>
-          </div>
-          <div class="multimedia">
-            <!-- Add your multimedia content here, such as an image or video -->
-            <img src="static/Borussia_Dortmund.jpg" alt="Borussia Dortmund">
-          </div>
-        </div>
-        
-        <div class="news-banner">
-          <div class="news-info">
-            <h3>Robert De Niro Compares His Character in "Killers of the Flower Moon" to Donald Trump [2023/05/21]</h3>
-            <div class="tags">
-              <span>#Entertainment</span>
-              <span>#Robert De Niro</span>
-              <span>#Donald Trump</span>
-            </div>
-          </div>
-          <div class="multimedia">
-            <!-- Add your multimedia content here, such as an image or video -->
-            <img src="static/Robert_De_Niro.png" alt="Robert De Niro">
-          </div>
-        </div>
-
-        <div class="news-banner">
-          <div class="news-info">
-            <h3>Brooks Koepka Wins 2023 PGA Championship with Record Purse [2023/05/21]</h3>
-            <div class="tags">
-              <span>#Sports</span>
-              <span>#Brooks Koepka</span>
-              <span>#PGA Championship</span>
-            </div>
-          </div>
-          <div class="multimedia">
-            <!-- Add your multimedia content here, such as an image or video -->
-            <img src="static/PGA.jpg" alt="PGA">
-          </div>
-        </div>
-
-        <div class="news-banner">
-          <div class="news-info">
-            <h3>Oliver Steele Performs with Jelly Roll in American Idol Season 21 Finale [2023/05/21]</h3>
-            <div class="tags">
-              <span>#Entertainment</span>
-              <span>#Oliver Steele</span>
-              <span>#Jelly Roll</span>
-            </div>
-          </div>
-          <div class="multimedia">
-            <!-- Add your multimedia content here, such as an image or video -->
-            <img src="static/Jelly_Roll.jpg" alt="Jelly Roll">
-          </div>
-        </div>
-
-        <div class="news-banner">
-          <p>News 7</p>
-        </div>
-        <div class="news-banner">
-          <p>News 8</p>
-        </div>
-        <div class="news-banner">
-          <p>News 9</p>
-        </div>
-        <div class="news-banner">
-            <p>News 10</p>
-        </div>
+        <script>
+          const newsBlocks = document.querySelector('.news-blocks');
+          const bannerCount = 10;
+      
+          for (let i = 0; i < bannerCount; i++) {
+            const newsBanner = document.createElement('div');
+            newsBanner.className = 'news-banner';
+      
+            const newsImage = document.createElement('div');
+            newsImage.className = 'news-image';
+            const image = document.createElement('img');
+            image.src = 'https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2023%2F0603%2Fr1182000_1296x729_16%2D9.jpg';
+            newsImage.appendChild(image);
+      
+            const newsCaption = document.createElement('div');
+            newsCaption.className = 'news-caption';
+      
+            const newsTitle = document.createElement('div');
+            newsTitle.className = 'news-title';
+            const title = document.createElement('h2');
+            title.className = 'title';
+            title.textContent = 'Title';
+            newsTitle.appendChild(title);
+      
+            const newsTags = document.createElement('div');
+            newsTags.className = 'news-tags';
+            const tags = ['#tag1', '#tag2', '#tag3'];
+            tags.forEach(function (tag) {
+              const tagElement = document.createElement('div');
+              tagElement.className = 'tag';
+              tagElement.textContent = tag;
+              newsTags.appendChild(tagElement);
+            });
+      
+            newsCaption.appendChild(newsTitle);
+            newsCaption.appendChild(newsTags);
+      
+            newsBanner.appendChild(newsImage);
+            newsBanner.appendChild(newsCaption);
+      
+            newsBlocks.appendChild(newsBanner);
+          }
+        </script>  
+      
       </div>
+
     </div>
-    <!-- <div class="bottom-nav">
-      <a href="home_page.html"><img src="../static/home-button-black.png" alt="Home"></a>
-      <a href="search_page.html"><img src="../static/search-button-black.png" alt="Search"></a>
-    </div> -->
 
     <div class="bottom-nav">
-      <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='home-button-black.png') }}" alt="Home Page"></a>
-      <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='search-button-black.png') }}" alt="Search Page"></a>
+      <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='home-button-blue.png') }}" alt="Home Page"></a>
+      <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='search-button-blue.png') }}" alt="Search Page"></a>
     </div>
 
   </div>
